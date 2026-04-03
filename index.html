@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz App</title>
+
+    <style>
+        .color{
+            color: white;
+            background-color: orange;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        body{
+            background-color: bisque;
+        }
+        .design{
+            font-family: 'Courier New', Courier, monospace;
+            border: 3px solid black;
+             border-style: double;
+             border-color: red;
+             display: inline;
+             background-color: cornflowerblue;
+
+        }
+    </style>
+
+    <script>
+        function resetQuiz(){
+             let selected = document.querySelectorAll('input[type="radio"]:checked');
+    selected.forEach(function(option) {
+        option.checked = false;
+    });
+
+            document.getElementById("res").innerHTML="";
+        }
+        function submitQuiz(){
+            let score = 0;
+
+            // Q1 correct = Charles Babbage
+            let q1 = document.querySelector('input[name="a"]:checked');
+            if(q1 && q1.value === "Charles Babbage"){
+                score++;
+            }
+
+            // Q2 correct = To process and store data
+            let q2 = document.querySelector('input[name="b"]:checked');
+            if(q2 && q2.value === "To process and store data"){
+                score++;
+            }
+let q3=document.querySelector('input[name="c"]:checked');
+if(q3 &&q3.value=="Microwave"){
+    score++;
+}
+let q4=document.querySelector('input[name="d"]:checked');
+if(q4 &&q4.value=="Central Processing Unit"){
+    score++;
+}
+let q5=document.querySelector('input[name="e"]:checked');
+if(q5 &&q5.value=="Z1"){
+    score++;
+}
+            // Show result
+            document.getElementById("result").innerHTML = 
+                "Your Score: " + score + "/5";
+        }
+    </script>
+</head>
+<body>
+    <center>
+<h1 style="color: blue;" class="design">Basic Computer Quiz</h1>
+    </center>
+<b>Q.1. Who developed computer?</b><br>
+<input type="radio" name="a" value="Charles Babbage"> Charles Babbage<br>
+<input type="radio" name="a" value="Doglas Engelbart"> Doglas Engelbart<br>
+<input type="radio" name="a" value="Tim Berner Lee"> Tim Berners-Lee<br>
+<input type="radio" name="a" value="James Gosling"> James Gosling<br>
+<br>
+<b>Q.2. What is the primary function of a computer?</b><br>
+<input type="radio" name="b" value="To perform calculations"> To perform calculations<br>
+<input type="radio" name="b" value="To process and store data"> To process and store data<br>
+<input type="radio" name="b" value="To connect to the internet"> To connect to the internet<br>
+<input type="radio" name="b" value="To play games"> To play games<br>
+<br>
+<b>Q.3.Which of the following is NOT a type of computer?</b></br>
+<input type="radio" name="c" value="Supercomputer">Supercomputer</br>
+<input type="radio" name="c" value="Smartphone">Smartphone</br>
+<input type="radio" name="c" value="Microwave">Microwave</br>
+<input type="radio" name="c" value="Laptop">Laptop</br>
+</br>
+<b>Q.4.What does "CPU" stand for in computing?</b></br>
+<input type="radio" name="d" value="Central Processing Unit">Central Processing Unit</br>
+<input type="radio" name="d" value="Computer Power Unit">Computer Power Unit</br>
+<input type="radio" name="d" value="Central Program Utility">Central Program Utility</br>
+<input type="radio" name="d" value="Core Processing Unit">Core Processing Unit</br>
+</br>
+<b>Q.5.What was the name of the first programmable computer?</b></br>
+<input type="radio" name="e" value="ENIAC">ENIAC</br>
+<input type="radio" name="e" value="UNIVAC">UNIVAC</br>
+<input type="radio" name="e" value="Z1">Z1</br>
+<input type="radio" name="e" value="IBM 701">IBM 701</br>
+</br>
+<button class="color" onclick="submitQuiz()">Submit</button>&nbsp;<button class="color" onclick="resetQuiz()">Reset</button>
+<h2 id="result"></h2>
+</body>
+</html>
