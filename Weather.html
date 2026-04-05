@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weather App</title>
+<style>
+body{
+    font-family: Arial;
+    text-align: center;
+    transition: 0.5s;
+}
+/* 🌈 Backgrounds */
+.sunny{ background: linear-gradient(to right, #fceabb, #f8b500); }
+.cloudy{ background: linear-gradient(to right, #d7d2cc, #304352); }
+.rainy{ background: linear-gradient(to right, #4e54c8, #8f94fb); }
+.default{ background: linear-gradient(to right, #74ebd5, #ACB6E5); }
+h1{ 
+color: white; 
+border-style: double;
+display: inline;
+background-color: #007BFF;
+border-radius: 10px;
+padding: 4px 5px;
+}
+.box{ margin-top: 50px; }
+
+input{
+    padding: 10px;
+    width: 220px;
+    border-radius: 8px;
+    border: 1px solid black;
+}
+
+button{
+    padding: 10px;
+    background-color: #007BFF;
+    color: white;
+    border: 1px solid black;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+button:hover{
+    background-color: #0056b3;
+}
+
+#resultBox{
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+/* 🔥 Attractive Cards */
+.card{
+    padding: 20px;
+    width: 160px;
+    border-radius: 20px;
+    color: rgb(255, 255, 255);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    transition: 0.4s;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid white;
+}
+
+/* 🌈 Card Colors */
+.card:nth-child(2){
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+}
+.card:nth-child(3){
+    background: linear-gradient(135deg, #a18cd1, #fbc2eb);
+}
+.card:nth-child(4){
+    background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+}
+.card:nth-child(5){
+    background: linear-gradient(135deg, #84fab0, #8fd3f4);
+}
+
+/* ✨ Shine Effect */
+.card::before{
+    content: "";
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background: rgba(255,255,255,0.1);
+    transform: rotate(45deg);
+    top: -50%;
+    left: -50%;
+}
+
+/* 🚀 Hover */
+.card:hover{
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+}
+
+/* 📝 Text */
+.title{
+    font-size: 14px;
+    letter-spacing: 1px;
+    opacity: 0.9;
+}
+
+.value{
+    font-size: 28px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.cityName{
+    width: 100%;
+    color: aqua;
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* ⏳ Loader */
+.loader{
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #007BFF;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: auto;
+}
+
+@keyframes spin{
+    0%{ transform: rotate(0deg);}
+    100%{ transform: rotate(360deg);}
+}
+</style>
+
+</head>
+
+<body class="default">
+
+<h1>🌤 Weather App</h1>
+
+<div class="box">
+    <input type="text" id="city" placeholder="Enter city name">
+    <button onclick="search()">Search</button>
+    <button onclick="currlocation()">Current Location</button>
+</div>
+
+<div id="resultBox"></div>
+
+<script>
+
+const apiKey = "85c1a119eb2562c4ff85ecc17b0a0d94";
+
+// 🌈 Background change
+function setBackground(weather){
+    let body = document.body;
+    body.className = "default";
+
+    if(weather.includes("Clear")) body.className = "sunny";
+    else if(weather.includes("Cloud")) body.className = "cloudy";
+    else if(weather.includes("Rain")) body.className = "rainy";
+}
+
+// 📊 Display Data
+function displayData(data){
+    let weatherMain = data.weather[0].main;
+
+    setBackground(weatherMain);
+
+    document.getElementById("resultBox").innerHTML = `
+        <div class="cityName">${data.name}</div>
+
+        <div class="card">
+            <div class="title">🌡 Temperature</div>
+            <div class="value">${data.main.temp}°C</div>
+        </div>
+
+        <div class="card">
+            <div class="title">🌥 Condition</div>
+            <div class="value">${weatherMain}</div>
+        </div>
+
+        <div class="card">
+            <div class="title">💧 Humidity</div>
+            <div class="value">${data.main.humidity}%</div>
+        </div>
+
+        <div class="card">
+            <div class="title">🌬 Wind Speed</div>
+            <div class="value">${data.wind.speed} m/s</div>
+        </div>
+    `;
+}
+
+// ⏳ Loader
+function showLoader(){
+    document.getElementById("resultBox").innerHTML = `<div class="loader"></div>`;
+}
+
+// 🔍 Search
+function search(){
+    let city = document.getElementById("city").value;
+
+    if(city === ""){
+        alert("Enter city name!");
+        return;
+    }
+
+    showLoader();
+
+    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`)
+    .then(res => res.json())
+    .then(data => {
+        if(data.cod !== 200){
+            document.getElementById("resultBox").innerHTML = "❌ City not found";
+            return;
+        }
+        displayData(data);
+    })
+    .catch(() => {
+        document.getElementById("resultBox").innerHTML = "⚠️ Error fetching data";
+    });
+}
+// 📍 Current Location
+function currlocation(){
+    showLoader();
+
+    navigator.geolocation.getCurrentPosition(position => {
+        let lat = position.coords.latitude;
+        let lon = position.coords.longitude;
+
+        fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`)
+        .then(res => res.json())
+        .then(data => displayData(data));
+    });
+}
+</script>
+</body>
+</html>
