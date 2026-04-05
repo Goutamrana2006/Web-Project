@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz App</title>
+
+    <style>
+        .color{
+            color: white;
+            background-color: orange;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        body{
+            background-color: bisque;
+        }
+        .design{
+            font-family: 'Courier New', Courier, monospace;
+            border: 3px solid black;
+             border-style: double;
+             border-color: red;
+             display: inline;
+             background-color: cornflowerblue;
+
+        }
+        #resultBox {
+    border: 2px solid black;
+    padding: 0px;
+    width: fit-content;
+    margin-top: 15px;
+    background-color: #f5f5f5;
+    color: green;
+}
+</style>
+    <script>
+        function resetQuiz(){
+             let selected = document.querySelectorAll('input[type="radio"]:checked');
+    selected.forEach(function(option) {
+        option.checked = false;
+    });
+
+            document.getElementById("res").innerHTML="";
+        }
+        function submitQuiz(){
+            let score = 0;
+            // Q1 correct = Charles Babbage
+            let q1 = document.querySelector('input[name="a"]:checked');
+            if(q1 && q1.value === "Charles Babbage"){
+                score++;
+            }
+
+            // Q2 correct = To process and store data
+            let q2 = document.querySelector('input[name="b"]:checked');
+            if(q2 && q2.value === "To process and store data"){
+                score++;
+            }
+let q3=document.querySelector('input[name="c"]:checked');
+if(q3 &&q3.value=="Microwave"){
+    score++;
+}
+let q4=document.querySelector('input[name="d"]:checked');
+if(q4 &&q4.value=="Central Processing Unit"){
+    score++;
+}
+let q5=document.querySelector('input[name="e"]:checked');
+if(q5 &&q5.value=="Z1"){
+    score++;
+}
+let q6=document.querySelector('input[name="f"]:checked');
+if(q6 && q6.value=="Integrated Circuits (ICs)"){;
+    score++;
+}
+let q7=document.querySelector('input[name="g"]:checked');
+if(q7 && q7.value=="Artificial Intelligence"){;
+    score++;
+}
+let q8=document.querySelector('input[name="h"]:checked');
+if(q8 && q8.value=="CPU"){;
+    score++;
+}
+let q9=document.querySelector('input[name="i"]:checked');
+if(q9 && q9.value=="Temporary storage for running applications"){;
+    score++;
+}
+let q10=document.querySelector('input[name="j"]:checked');
+if(q10 && q10.value=="To provide electricity to components"){;
+    score++;
+}
+ let res= " ";
+            if(score>=5){
+                res="PASS";
+            }
+            else{
+                res="FAIL";
+            }
+            // Show result
+                 document.getElementById("result").innerHTML =
+    "Marks Secured: " + score + "/10 <br>" +
+    "Percentage: " + (score / 10 * 100) + "% <br>" +
+    "Result: " + res;
+        }
+    </script>
+</head>
+<body>
+    <center>
+<h1 style="color: white;" class="design">Basic Computer Quiz</h1>
+    </center>
+<h4 style="color: red;">"All questions are mandatory. There is no negative marking."</h4>
+<b>Q.1. Who developed computer?</b><br>
+<input type="radio" name="a" value="Charles Babbage"> Charles Babbage<br>
+<input type="radio" name="a" value="Doglas Engelbart"> Doglas Engelbart<br>
+<input type="radio" name="a" value="Tim Berner Lee"> Tim Berners-Lee<br>
+<input type="radio" name="a" value="James Gosling"> James Gosling<br>
+<br>
+<b>Q.2. What is the primary function of a computer?</b><br>
+<input type="radio" name="b" value="To perform calculations"> To perform calculations<br>
+<input type="radio" name="b" value="To process and store data"> To process and store data<br>
+<input type="radio" name="b" value="To connect to the internet"> To connect to the internet<br>
+<input type="radio" name="b" value="To play games"> To play games<br>
+<br>
+<b>Q.3.Which of the following is NOT a type of computer?</b></br>
+<input type="radio" name="c" value="Supercomputer">Supercomputer</br>
+<input type="radio" name="c" value="Smartphone">Smartphone</br>
+<input type="radio" name="c" value="Microwave">Microwave</br>
+<input type="radio" name="c" value="Laptop">Laptop</br>
+</br>
+<b>Q.4.What does "CPU" stand for in computing?</b></br>
+<input type="radio" name="d" value="Central Processing Unit">Central Processing Unit</br>
+<input type="radio" name="d" value="Computer Power Unit">Computer Power Unit</br>
+<input type="radio" name="d" value="Central Program Utility">Central Program Utility</br>
+<input type="radio" name="d" value="Core Processing Unit">Core Processing Unit</br>
+</br>
+<b>Q.5.What was the name of the first programmable computer?</b></br>
+<input type="radio" name="e" value="ENIAC">ENIAC</br>
+<input type="radio" name="e" value="UNIVAC">UNIVAC</br>
+<input type="radio" name="e" value="Z1">Z1</br>
+<input type="radio" name="e" value="IBM 701">IBM 701</br>
+</br>
+<b>Q.6.Which technology replaced transistors in the third generation of computers?</b></br>
+<input type="radio" name="f" value="Vacuum tubes">Vacuum tubes</br>
+<input type="radio" name="f" value="Integrated Circuits (ICs)">Integrated Circuits (ICs)</br>
+<input type="radio" name="f" value="Microprocessors">Microprocessors</br>
+<input type="radio" name="f" value="Quantum chips">Quantum chips</br>
+</br>
+<b>Q.7.What is the focus of fifth-generation computers?</b></br>
+<input type="radio" name="g" value="Artificial Intelligence">Artificial Intelligence</br>
+<input type="radio" name="g" value="Supercomputers">Supercomputers</br>
+<input type="radio" name="g" value="Quantum Computing">Quantum Computing</br>
+<input type="radio" name="g" value="Cloud Computing">Cloud Computing</br>
+</br>
+<b>Q.8.Which component is considered the "brain" of the computer?</b></br>
+<input type="radio" name="h" value="GPU">GPU</br>
+<input type="radio" name="h" value="CPU">CPU</br>
+<input type="radio" name="h" value="RAM">RAM</br>
+<input type="radio" name="h" value="Harddrive">Harddrive</br>
+</br>
+<b>Q.9.What is the purpose of RAM in a computer?</b></br>
+<input type="radio" name="i" value="Long-term storage">Long-term storage</br>
+<input type="radio" name="i" value="Temporary storage for running applications">Temporary storage for running applications</br>
+<input type="radio" name="i" value="Processing graphics">Processing graphics</br>
+<input type="radio" name="i" value="Connecting to the internet">Connecting to the internet</br>
+</br>
+<b>Q.10.What is the purpose of a power supply unit (PSU) in a computer?</b></br>
+<input type="radio" name="j" value="To provide electricity to components">To provide electricity to components</br>
+<input type="radio" name="j" value="To store data">To store data</br>
+<input type="radio" name="j" value="To process graphics">To process graphics</br>
+<input type="radio" name="j" value="To connect to the internet">To connect to the internet</br>
+</br>
+<button class="color" onclick="submitQuiz()">Submit</button>&nbsp;<button class="color" onclick="resetQuiz()">Reset</button>
+<div id="resultBox">
+    <h2 id="result"></h2>
+</div>
+</body>
+</html>
